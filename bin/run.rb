@@ -3,17 +3,29 @@ welcome
 user = get_user
 coffee_search = zip_search
 coffee_array = coffee_list(coffee_search)
+clean_list(coffee_array)
 
-def clean_list(coffee_array)
-  counter = 0
-  coffee_array.each do |shop|
-     puts "#{counter + 1}.  #{coffee_array[counter]["coffee shop #{counter +1}"][:name]} \n   Location: #{coffee_array[counter]["coffee shop #{counter +1}"][:location].join(" ")}"
-    counter += 1
+
+def favorite_coffee(coffee_array, user)
+
+  puts "\nWould you like to add a coffee to favorites?\n
+  (YES or NO)"
+  answer = gets.chomp
+  if answer == "yes"
+    puts "\n Please enter your number choice 1 - 5"
+    selection = gets.chomp.to_i
+    if selection == 1
+      binding.pry
+    end
+  elsif answer == "no"
+    # send to menu
+  else
+    error_message
+    favorite_coffee(coffee_array, user)
   end
 end
 
-clean_list(coffee_array)
-
+favorite_coffee(coffee_array, user)
 
 # "1.  #{coffee_array[0]["coffee shop 1"][:name]}   #{coffee_array[0]["coffee shop 1"][:location]}"
 #
