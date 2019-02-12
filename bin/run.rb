@@ -11,4 +11,3 @@ def find_coffee
 end
 
 binding.pry
-puts "HELLO WORLD"
