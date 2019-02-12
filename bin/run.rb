@@ -9,5 +9,3 @@ def find_coffee
   coffee_search.each do |shops|
   end
 end
-
-binding.pry

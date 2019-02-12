@@ -1,3 +1,7 @@
+require "json"
+require "http"
+require "pry"
+
 puts "*" *30
 puts "     Welcome to Coffee Search     "
 puts "*" *30
@@ -20,17 +24,21 @@ location = gets.chomp
 
 coffee_search = YelpApiAdapter.search("coffee", location)
 
-coffee_hash = {}
-counter = 0
-parsed_coffee = coffee_search.each do |coffee|
-  if coffee_hash["coffee shop #{counter}"]
-    counter+=1
-    coffee_hash["coffee shop #{counter}"][:location]=coffee["location"]
-  else
+
+
+coffee_arr = []
+counter = 1
+coffee_search.map do |coffee|
+  coffee_hash = {}
     coffee_hash["coffee shop #{counter}"]={:name => coffee["name"]}
     coffee_hash["coffee shop #{counter}"][:location]=coffee["location"]["display_address"]
-    end
-  binding.pry
+    coffee_arr << coffee_hash
+    counter+=1
+    coffee_arr
   end
-# if location == String || location == ""
-# error_message
+
+  binding.pry
+
+  # option_1 = "#{coffee_arr[0]["coffee shop 1"]["name"]}\n #{coffee_arr[0]["coffee shop 1"]["location"]["display_address"]}"
+
+puts "#{coffee_arr[0]["coffee shop 1"][:name]}"

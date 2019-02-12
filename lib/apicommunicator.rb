@@ -25,8 +25,10 @@ class YelpApiAdapter
     }
     response = HTTP.auth("Bearer #{API_KEY}").get(url, params: params)
     response.parse["businesses"]
+
+
   end
-  # 
+  #
   # def self.business_reviews(business_id)
   #   url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}/reviews"
   #   response = HTTP.auth("Bearer #{API_KEY}").get(url)
