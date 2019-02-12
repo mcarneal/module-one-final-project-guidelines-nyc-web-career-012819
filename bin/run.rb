@@ -5,6 +5,7 @@ coffee_search = zip_search
 coffee_array = coffee_list(coffee_search)
 clean_list(coffee_array)
 
+binding.pry
 
 def favorite_coffee(coffee_array, user)
 
@@ -15,7 +16,14 @@ def favorite_coffee(coffee_array, user)
     puts "\n Please enter your number choice 1 - 5"
     selection = gets.chomp.to_i
     if selection == 1
-      binding.pry
+      c1 = CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
+      if CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
+        puts "coffee shop already exists"
+      else
+      CoffeeShop.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location])
+
+      Favorite.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name]).id)
+      end
     end
   elsif answer == "no"
     # send to menu

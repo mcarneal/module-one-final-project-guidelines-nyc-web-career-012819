@@ -5,6 +5,6 @@ class CreateFavorites < ActiveRecord::Migration[5.2]
       t.string :location
       t.integer :user_id
       t.integer :coffee_shop_id
-    end 
+    end
   end
 end
