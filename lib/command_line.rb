@@ -31,6 +31,8 @@ end
 
 
 
+
+
 def coffee_list(coffee_search)
 coffee_arr = []
 counter = 1
@@ -69,18 +71,30 @@ def favorite_coffee(coffee_array, user)
 
     shop_location = coffee_array[selection -1]["coffee shop #{selection}"][:location].join(" ")
 
-      c1 = CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name])
+    find_user_id = User.find_by(name: user).id
 
-      if Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
+      c1 = CoffeeShop.find_by(name: shop_name)
+
+      binding.pry
+      if Favorite.find_by(user_id: find_user_id, coffee_shop_id: nil)
+
+        CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
+
+        Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
+        menu
+
+      else
+        Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
       puts "You have already have this in your favorites"
       menu
-      else
-        binding.pry
-      CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
-
-      Favorite.create(name: coffee_array[selection -1]["coffee shop #{selection}"][:name], location: coffee_array[selection -1]["coffee shop #{selection}"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name]).id)
-      menu
-      end
+    end
+      #
+      #   binding.pry
+      # CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
+      #
+      # Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
+      # menu
+      # end
   elsif answer == "no"
     menu
   else
@@ -107,6 +121,7 @@ def menu
     if input == "1"
       user = get_user
       get_me_more_java(user)
+      binding.pry
     elsif input == "2"
       # view_favorites
     elsif input == "3"
