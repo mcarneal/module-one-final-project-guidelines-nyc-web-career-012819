@@ -1,47 +1,13 @@
 require_relative '../config/environment'
+
+
 welcome
 user = get_user
 coffee_search = zip_search
 coffee_array = coffee_list(coffee_search)
 clean_list(coffee_array)
+favorite_coffee(coffee_array, user)
 
 binding.pry
 
-def favorite_coffee(coffee_array, user)
-
-  puts "\nWould you like to add a coffee to favorites?\n
-  (YES or NO)"
-  answer = gets.chomp
-  if answer == "yes"
-    puts "\n Please enter your number choice 1 - 5"
-    selection = gets.chomp.to_i
-    if selection == 1
-      c1 = CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
-      if CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
-        puts "coffee shop already exists"
-      else
-      CoffeeShop.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location])
-
-      Favorite.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name]).id)
-      end
-    end
-  elsif answer == "no"
-    # send to menu
-  else
-    error_message
-    favorite_coffee(coffee_array, user)
-  end
-end
-
-favorite_coffee(coffee_array, user)
-
-# "1.  #{coffee_array[0]["coffee shop 1"][:name]}   #{coffee_array[0]["coffee shop 1"][:location]}"
-#
-
-
-# def find_coffee
-#   shop_name = {}
-#   coffee_search = YelpApiAdapter.search("coffee", 11237)
-#   coffee_search.each do |shops|
-#   end
-# end
+puts "bye bye"

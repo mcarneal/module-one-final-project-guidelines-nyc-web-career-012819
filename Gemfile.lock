@@ -13,6 +13,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    byebug (10.0.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.4)
     dotenv (2.6.0)
@@ -27,6 +28,9 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
     rack (2.0.6)
     rack-protection (2.0.5)
       rack
@@ -53,6 +57,7 @@ DEPENDENCIES
   dotenv
   http
   pry
+  pry-byebug
   rake
   require_all
   sinatra-activerecord
