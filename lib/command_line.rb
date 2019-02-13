@@ -11,7 +11,7 @@ end
 
 def get_user
   puts"\n Please enter your username"
-  user_name = gets.chomp
+  user_name = gets.chomp.strip
   if User.find_by(name: user_name)
     puts "Welcome back #{user_name}"
   else
@@ -64,18 +64,25 @@ def favorite_coffee(coffee_array, user)
   if answer == "yes"
     puts "\n Please enter your number choice 1 - 5"
     selection = gets.chomp.to_i
+
+    shop_name = coffee_array[selection -1]["coffee shop #{selection}"][:name]
+
+    shop_location = coffee_array[selection -1]["coffee shop #{selection}"][:location].join(" ")
+
       c1 = CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name])
-      if CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name])
-        puts "coffee shop already exists"
-        menu
+
+      if Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
+      puts "You have already have this in your favorites"
+      menu
       else
-      CoffeeShop.create(name: coffee_array[selection -1]["coffee shop #{selection}"][:name], location: coffee_array[selection -1]["coffee shop #{selection}"][:location])
+        binding.pry
+      CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
 
       Favorite.create(name: coffee_array[selection -1]["coffee shop #{selection}"][:name], location: coffee_array[selection -1]["coffee shop #{selection}"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name]).id)
       menu
       end
   elsif answer == "no"
-    # send to menu
+    menu
   else
     error_message
     favorite_coffee(coffee_array, user)
