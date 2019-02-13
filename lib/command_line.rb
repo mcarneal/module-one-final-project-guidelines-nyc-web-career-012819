@@ -3,6 +3,7 @@ require "http"
 require "pry"
 
 
+
 def welcome
   puts "*" *30
   puts "     Welcome to Coffee Search     "
@@ -11,16 +12,18 @@ end
 
 def get_user
   puts"\n Please enter your username"
-  user_name = gets.chomp.strip
-  if User.find_by(name: user_name)
-    puts "Welcome back #{user_name}"
+  @user_name = gets.chomp.strip
+  if User.find_by(name: @user_name)
+    puts "Welcome back #{@user_name}"
   else
     puts "welcome new user, please enter your home location"
     location = gets.chomp
-    User.create(name: user_name, location: location)
+    User.create(name: @user_name, location: location)
   end
-user_name
+@user_name
 end
+
+
 
 def zip_search
   puts "Where would you like to search for coffee? Please enter zip code"
@@ -76,7 +79,7 @@ def favorite_coffee(coffee_array, user)
       c1 = CoffeeShop.find_by(name: shop_name)
 
       binding.pry
-      if Favorite.find_by(user_id: find_user_id, coffee_shop_id: nil)
+      if Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
 
         CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
 
@@ -124,6 +127,7 @@ def menu
       binding.pry
     elsif input == "2"
       # view_favorites
+      binding.pry
     elsif input == "3"
       delete_favorites
     elsif input == "4"
