@@ -15,16 +15,14 @@ def favorite_coffee(coffee_array, user)
   if answer == "yes"
     puts "\n Please enter your number choice 1 - 5"
     selection = gets.chomp.to_i
-    if selection == 1
-      c1 = CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
-      if CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name])
+      c1 = CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name])
+      if CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name])
         puts "coffee shop already exists"
       else
-      CoffeeShop.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location])
+      CoffeeShop.create(name: coffee_array[selection -1]["coffee shop #{selection}"][:name], location: coffee_array[selection -1]["coffee shop #{selection}"][:location])
 
-      Favorite.create(name: coffee_array[0]["coffee shop 1"][:name], location: coffee_array[0]["coffee shop 1"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[0]["coffee shop 1"][:name]).id)
+      Favorite.create(name: coffee_array[selection -1]["coffee shop #{selection}"][:name], location: coffee_array[selection -1]["coffee shop #{selection}"][:location], user_id: User.find_by(name: user).id, coffee_shop_id: CoffeeShop.find_by(name: coffee_array[selection -1]["coffee shop #{selection}"][:name]).id)
       end
-    end
   elsif answer == "no"
     # send to menu
   else
