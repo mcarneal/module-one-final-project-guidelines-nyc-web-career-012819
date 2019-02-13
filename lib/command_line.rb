@@ -16,6 +16,7 @@ def get_user
   @user_name = gets.chomp.strip
   if User.find_by(name: @user_name)
     puts "Welcome back #{@user_name}"
+    sleep 1
   else
     puts "welcome new user, please enter your home location"
     location = gets.chomp
@@ -34,6 +35,10 @@ def zip_search
 
   coffee_search = YelpApiAdapter.search("coffee", location)
   coffee_search
+    if coffee_search == nil
+      error_message
+      zip_search
+    end
 
   else
     error_message
