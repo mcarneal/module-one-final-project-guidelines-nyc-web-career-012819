@@ -80,11 +80,12 @@ def favorite_coffee(coffee_array, user)
 
       c1 = CoffeeShop.find_by(name: shop_name)
 
-        if Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
-          puts "You have already have this in your favorites"
-          menu
+         if Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
+           puts "You have already have this in your favorites"
+           menu
 
-      else
+
+        else
         # Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
 
         CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
@@ -92,30 +93,15 @@ def favorite_coffee(coffee_array, user)
         Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
         menu
 
-      else
         Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
       puts "You have already have this in your favorites"
 
-      menu
-    else
-      error_message
-      favorite_coffee(coffee_array, user)
+        menu
 
-    end
-  end
-      #
-      #   binding.pry
-      # CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
-      #
-      # Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
-      # menu
-      # end
-<<<<<<< HEAD
+        error_message
+        favorite_coffee(coffee_array, user)
+      end
 
-
-
-
-=======
   elsif answer == "no"
     system "clear"
     menu
@@ -124,8 +110,9 @@ def favorite_coffee(coffee_array, user)
     favorite_coffee(coffee_array, user)
     menu
   end
-end
->>>>>>> favorites
+end 
+
+
   # option_1 = "#{coffee_arr[0]["coffee shop 1"]["name"]}\n #{coffee_arr[0]["coffee shop 1"]["location"]["display_address"]}"
 #
 # puts "#{coffee_arr[0]["coffee shop 1"][:name]}"
