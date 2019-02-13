@@ -9,7 +9,7 @@ clean_list(coffee_array)
 
 
 
-favorite_coffee(coffee_array, user)
+favorite_coffee(coffee_array)
 
 
 

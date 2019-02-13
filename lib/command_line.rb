@@ -7,7 +7,7 @@ require "pry"
 def welcome
   system "clear"
   puts "*" *30
-  puts "     Welcome to Coffee Search     "
+  puts "  Welcome to Coffee Search     "
   puts "*" *30
 end
 
@@ -30,8 +30,17 @@ end
 def zip_search
   puts "Where would you like to search for coffee? Please enter zip code"
   location = gets.chomp
+  if location.length == 5
+
   coffee_search = YelpApiAdapter.search("coffee", location)
   coffee_search
+
+  else
+    error_message
+    sleep 1
+    system "clear"
+    zip_search
+  end
 end
 
 
@@ -63,12 +72,12 @@ def error_message
   puts "Invalid entry"
 end
 
-def favorite_coffee(coffee_array, user)
+def favorite_coffee(coffee_array)
 
-  puts "\nWould you like to add a coffee to favorites?\n
-  (YES or NO)"
+  puts "\nWould you like to add a coffee to favorites?
+Type yes or no (y/n)"
   answer = gets.chomp
-  if answer == "yes"
+  if answer == "yes" || answer == "y" || answer == "YES" || answer == "Y"
     puts "\n Please enter your number choice 1 - 5"
     selection = gets.chomp.to_i
 
@@ -76,41 +85,35 @@ def favorite_coffee(coffee_array, user)
 
     shop_location = coffee_array[selection -1]["coffee shop #{selection}"][:location].join(" ")
 
-    find_user_id = User.find_by(name: user).id
+    find_user_id = User.find_by(name: @user_name).id
 
-      c1 = CoffeeShop.find_by(name: shop_name)
+    # c1 = CoffeeShop.new(name: shop_name, location: shop_location)
+# binding.pry
+#     f1 = Favorite.find_by(name: shop_name, user_id: find_user_id)
 
-         if Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
-           puts "You have already have this in your favorites"
-           menu
+      # if f1 = nil
+      #    puts "Adding to your favorites"
+         CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
+
+         Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
+         menu
+    #
+    #
+    # CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
+    #
+    # Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
 
 
-        else
-        # Favorite.find_by(user_id: find_user_id, coffee_shop_id: c1.id)
 
-        CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
-
-        Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
-        menu
-
-        Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
-      puts "You have already have this in your favorites"
-
-        menu
-
-        error_message
-        favorite_coffee(coffee_array, user)
-      end
-
-  elsif answer == "no"
+  elsif answer == "no" || answer == "n" || answer == "NO" || answer == "N"
     system "clear"
     menu
   else
     error_message
-    favorite_coffee(coffee_array, user)
+    favorite_coffee(coffee_array)
     menu
   end
-end 
+end
 
 
   # option_1 = "#{coffee_arr[0]["coffee shop 1"]["name"]}\n #{coffee_arr[0]["coffee shop 1"]["location"]["display_address"]}"
@@ -126,8 +129,27 @@ def list_of_favorites
     puts "\n#{counter}   #{shop.name} \n Location: #{shop.location}"
     counter += 1
   end
+  puts "\nReturn to menu? \nType yes or no (y/n)"
+    answer = gets.chomp
+    if answer == "yes" || answer == "y" || answer == "YES" || answer == "Y"
+      system"clear"
+      menu
+    elsif answer == "no" || answer == "n" || answer == "NO" || answer == "N"
+      exit_app
+    else
+      system"clear"
+      puts "Incorrect entry"
+      list_of_favorites
+    end
 end
 
+def delete_favorites_list
+  counter = 1
+  my_favorite_shops.each do |shop|
+    puts "\n#{counter}   #{shop.name} \n Location: #{shop.location}"
+    counter += 1
+  end
+end
 
 
 def menu
@@ -167,10 +189,28 @@ def delete_favorites
     "
     input = gets.chomp
     if input == "1"
-      list_of_favorites
+      delete_favorites_list
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
       delete_shop = gets.chomp
-      typo_checker(delete_shop)
+
+      shop_name_list = delete_favorites_list.map do |shop|
+        shop.name
+      end
+
+      if shop_name_list.include?(delete_shop)
+
+        shop = Favorite.find_by(name: delete_shop, user_id: User.find_by(name: @user_name))
+        shop.destroy
+        system "clear"
+        puts "Now removing #{delete_shop} from your favorites list"
+        delete_favorites
+
+      else
+        system "clear"
+        puts  "Incorrect entry"
+        delete_favorites
+      end
+
     elsif input == "2"
       # view_favorites.destroy
       puts "Your favorites list is empty"
@@ -180,23 +220,27 @@ def delete_favorites
     else
       puts "Please select from the following:"
       delete_favorites
-      end
+
     end
+  end
 
 def typo_checker(input)
-  if input != CoffeeShop.where(name: input)
+  if input != CoffeeShop.find_by(name: input)
     puts "Sorry, there must be a typo please try again"
     delete_favorites
   else
-shop_to_delete = Coffeeshop.where(name: input)
+    shop_to_delete = Coffeeshop.find_by(name: input)
   shop_to_delete.destroy
-puts "#{input.upcase!} has been successfully deleted "
-delete_favorites
+  puts "#{input} has been successfully deleted "
+  delete_favorites
   end
 end
 
 def exit_app
   puts "Thank you for using Java Beans: Where a fresh brew is just around the corner!"
+
+  sleep 2
+  system "clear"
   exit!
 end
 
@@ -204,7 +248,7 @@ def get_me_more_java(user)
   coffee_search = zip_search
   coffee_array = coffee_list(coffee_search)
   clean_list(coffee_array)
-  favorite_coffee(coffee_array, user)
+  favorite_coffee(coffee_array)
 end
 # favorite_coffee(coffee_array, user)
 
