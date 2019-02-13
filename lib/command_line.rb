@@ -5,6 +5,7 @@ require "pry"
 
 
 def welcome
+  system "clear"
   puts "*" *30
   puts "     Welcome to Coffee Search     "
   puts "*" *30
@@ -21,6 +22,7 @@ def get_user
     User.create(name: @user_name, location: location)
   end
 @user_name
+system "clear"
 end
 
 
@@ -89,6 +91,7 @@ def favorite_coffee(coffee_array, user)
       else
         Favorite.find_by(user_id: User.find_by(name: user).id, coffee_shop_id: c1.id)
       puts "You have already have this in your favorites"
+
       menu
     end
       #
@@ -99,6 +102,7 @@ def favorite_coffee(coffee_array, user)
       # menu
       # end
   elsif answer == "no"
+    system "clear"
     menu
   else
     error_message
@@ -109,10 +113,22 @@ end
   # option_1 = "#{coffee_arr[0]["coffee shop 1"]["name"]}\n #{coffee_arr[0]["coffee shop 1"]["location"]["display_address"]}"
 #
 # puts "#{coffee_arr[0]["coffee shop 1"][:name]}"
+def my_favorite_shops
+  User.find_by(name: @user_name).coffee_shops
+end
+
+def list_of_favorites
+  counter = 1
+  my_favorite_shops.each do |shop|
+    puts "\n#{counter}   #{shop.name} \n Location: #{shop.location}"
+    counter += 1
+  end
+end
 
 
 
 def menu
+  system "clear"
   puts "
   Main MENU
     --1--  Get me more JAVA!
@@ -122,13 +138,14 @@ def menu
     "
     input = gets.chomp
     if input == "1"
+      system "clear"
       user = get_user
       get_me_more_java(user)
-      binding.pry
     elsif input == "2"
-      # view_favorites
-      binding.pry
+      system "clear"
+      list_of_favorites
     elsif input == "3"
+      system "clear"
       delete_favorites
     elsif input == "4"
       exit_app
@@ -145,12 +162,12 @@ def delete_favorites
     --2--  Delete all favorites
     --3--  Return to Main MENU
     "
-    input = ""
     input = gets.chomp
     if input == "1"
+      list_of_favorites
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
-      input = gets.chomp
-      typo_checker(input)
+      delete_shop = gets.chomp
+      typo_checker(delete_shop)
     elsif input == "2"
       # view_favorites.destroy
       puts "Your favorites list is empty"
