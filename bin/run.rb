@@ -6,8 +6,6 @@ user = get_user
 coffee_search = zip_search
 coffee_array = coffee_list(coffee_search)
 clean_list(coffee_array)
-<<<<<<< HEAD
-=======
 
 binding.pry
 
@@ -35,7 +33,6 @@ def favorite_coffee(coffee_array, user)
   end
 end
 
->>>>>>> 5f2a532329aed8c32a09fd766915b5cd5f1c9350
 favorite_coffee(coffee_array, user)
 
 binding.pry
