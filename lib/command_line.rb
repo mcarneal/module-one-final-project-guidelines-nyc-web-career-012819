@@ -225,7 +225,7 @@ end
 
 def menu
   system "clear"
-  static_logo
+  puts static_logo
   puts "
   Main MENU
     --1--  Get me more JAVA!
@@ -240,6 +240,7 @@ def menu
       get_me_more_java(user)
     elsif input == "2"
       system "clear"
+      puts static_logo
       list_of_favorites
     elsif input == "3"
       system "clear"
@@ -253,7 +254,7 @@ def menu
   end
 
 def delete_favorites
-  static_logo
+  puts static_logo
   puts "
     DELETE MENU
     --1--  Delete a specific favorite
@@ -263,7 +264,7 @@ def delete_favorites
     input = gets.chomp
     if input == "1"
       system "clear"
-      static_logo
+      puts static_logo
       delete_favorites_list
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
       delete_shop = gets.chomp
