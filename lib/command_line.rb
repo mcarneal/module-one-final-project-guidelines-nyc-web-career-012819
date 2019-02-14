@@ -6,12 +6,19 @@ require "pry"
 
 def welcome
   system "clear"
-  puts "*" *30
-  puts "  Welcome to Coffee Search     "
-  puts "*" *30
+  puts"
+     ██╗ █████╗ ██╗   ██╗ █████╗     ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗
+     ██║██╔══██╗██║   ██║██╔══██╗    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║
+     ██║███████║██║   ██║███████║    ███████╗█████╗  ███████║██████╔╝██║     ███████║
+██   ██║██╔══██║╚██╗ ██╔╝██╔══██║    ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║
+╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
+ ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+
+"
 end
 
 def get_user
+  welcome
   puts"\n Please enter your username"
   @user_name = gets.chomp.strip
   if User.find_by(name: @user_name)
@@ -29,6 +36,7 @@ end
 
 
 def zip_search
+  welcome
   puts "Where would you like to search for coffee? Please enter zip code"
   location = gets.chomp
   if location.length == 5
@@ -129,6 +137,7 @@ def my_favorite_shops
 end
 
 def list_of_favorites
+  welcome
   counter = 1
   my_favorite_shops.each do |shop|
     puts "\n#{counter}   #{shop.name} \n Location: #{shop.location}"
@@ -159,6 +168,7 @@ end
 
 def menu
   system "clear"
+  welcome
   puts "
   Main MENU
     --1--  Get me more JAVA!
@@ -186,6 +196,7 @@ def menu
   end
 
 def delete_favorites
+  welcome
   puts "
     DELETE MENU
     --1--  Delete a specific favorite
@@ -195,6 +206,7 @@ def delete_favorites
     input = gets.chomp
     if input == "1"
       system "clear"
+      welcome
       delete_favorites_list
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
       delete_shop = gets.chomp
@@ -213,11 +225,13 @@ def delete_favorites
 
       else
         system "clear"
+        welcome
         puts  "Incorrect entry"
         delete_favorites
       end
 
     elsif input == "2"
+      welcome
       user_id = User.find_by(name: @user_name).id
       delete_list = Favorite.all
       delete_list.map do |favorite|
@@ -252,6 +266,7 @@ def exit_app
   puts "Thank you for using Java Beans: Where a fresh brew is just around the corner!"
 
   sleep 2
+  system"killall afplay"
   system "clear"
   exit!
 end
