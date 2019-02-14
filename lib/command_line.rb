@@ -19,7 +19,7 @@ def static_logo
 ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-".green
+"
 
 end
 
@@ -35,7 +35,7 @@ def logo
 ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-".green)
+")
 
 end
 
@@ -54,7 +54,7 @@ def welcome
 
 Whirly.start spinner: "earth"
 Whirly.status = "INITIALIZING COFFEE DATABASE"
-sleep 2.5
+sleep 1.5
 Whirly.stop
 
 
@@ -166,6 +166,12 @@ Type yes or no (y/n)"
          CoffeeShop.find_or_create_by(name: shop_name, location: shop_location)
 
          Favorite.find_or_create_by(name: shop_name, location: shop_location, user_id: find_user_id, coffee_shop_id: CoffeeShop.find_by(name: shop_name).id)
+
+         Whirly.start spinner: "pong"
+         Whirly.status = "Adding to Favorites"
+         sleep 2
+         Whirly.stop
+
          menu
     #
     #
@@ -236,8 +242,12 @@ def menu
     input = gets.chomp
     if input == "1"
       system "clear"
-      user = get_user
-      get_me_more_java(user)
+      coffee_search = zip_search
+      coffee_array = coffee_list(coffee_search)
+      clean_list(coffee_array)
+      favorite_coffee(coffee_array)
+      # user = get_user
+      # get_me_more_java(user)
     elsif input == "2"
       system "clear"
       puts static_logo
@@ -254,6 +264,7 @@ def menu
   end
 
 def delete_favorites
+  system"clear"
   puts static_logo
   puts "
     DELETE MENU
@@ -289,22 +300,33 @@ def delete_favorites
       end
 
     elsif input == "2"
-      static_logo
-      user_id = User.find_by(name: @user_name).id
-      delete_list = Favorite.all
-      delete_list.map do |favorite|
-        if favorite.user_id == user_id
-          favorite.destroy
+      system"clear"
+      puts static_logo
+      delete_favorites_list
+      puts "Are you sure you want to delete all? (y/n)"
+      answer = gets.chomp
+      if answer == "yes" || answer == "y" || answer == "YES" || answer == "Y"
+        user_id = User.find_by(name: @user_name).id
+        delete_list = Favorite.all
+        delete_list.map do |favorite|
+           if favorite.user_id == user_id
+            puts "Removing #{favorite.name} from your favorites"
+            sleep 0.5
+            favorite.destroy
+          end
         end
+      elsif answer == "no" || answer == "n" || answer == "NO" || answer == "N"
+        delete_favorites
+      else
+       error_message
+       delete_favorites
       end
-      puts "Your favorites list is empty"
       delete_favorites
     elsif input == "3"
       menu
     else
       puts "Please select from the following:"
       delete_favorites
-
     end
   end
 
@@ -337,7 +359,7 @@ def exit_app
   system"killall afplay"
   system "clear"
 
-  # exit!
+  exit!
 end
 
 def get_me_more_java(user)
@@ -346,15 +368,3 @@ def get_me_more_java(user)
   clean_list(coffee_array)
   favorite_coffee(coffee_array)
 end
-# favorite_coffee(coffee_array, user)
-
-# "1.  #{coffee_array[0]["coffee shop 1"][:name]}   #{coffee_array[0]["coffee shop 1"][:location]}"
-#
-
-
-# def find_coffee
-#   shop_name = {}
-#   coffee_search = YelpApiAdapter.search("coffee", 11237)
-#   coffee_search.each do |shops|
-#   end
-# end
