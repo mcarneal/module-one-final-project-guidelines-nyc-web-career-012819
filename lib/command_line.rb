@@ -237,7 +237,8 @@ def menu
     --1--  Get me more JAVA!
     --2--  View favorites
     --3--  Delete favorites
-    --4--  EXIT App
+    --4--  Logout
+    --5--  EXIT App
     "
     input = gets.chomp
     if input == "1"
@@ -256,6 +257,10 @@ def menu
       system "clear"
       delete_favorites
     elsif input == "4"
+      puts "returning to login screen"
+      sleep 2
+      start
+    elsif input == "5"
       exit_app
     else
       puts "Please select from the following:"
@@ -367,4 +372,17 @@ def get_me_more_java(user)
   coffee_array = coffee_list(coffee_search)
   clean_list(coffee_array)
   favorite_coffee(coffee_array)
+end
+
+def start
+  welcome
+  user = get_user
+  coffee_search = zip_search
+  coffee_array = coffee_list(coffee_search)
+  clean_list(coffee_array)
+  favorite_coffee(coffee_array)
+end
+
+def logout
+  start
 end
