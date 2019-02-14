@@ -57,16 +57,51 @@ Whirly.status = "INITIALIZING COFFEE DATABASE"
 sleep 1.5
 Whirly.stop
 
+end
 
-# Whirly.start spinner: "pong"
-# Whirly.status = "GATHERING COFFEE SHOPS"
-# sleep 4
-# Whirly.stop
+
+def login_screen
+  puts "
+  Weclome to Java Search
+    --1--  Login
+    --2--  About
+    --3--  Exit
+    "
+
+    puts "Please enter a selection"
+
+    answer = gets.chomp
+
+    if answer == "1"
+      system"clear"
+      user = get_user
+      coffee_search = zip_search
+      coffee_array = coffee_list(coffee_search)
+      clean_list(coffee_array)
+      favorite_coffee(coffee_array)
+    elsif answer == "2"
+      system"clear"
+      puts static_logo
+      puts "This is a command line app that uses a yelp api to search for coffee shops. Each user can save a coffee shop to their favorites or delete them at a later time. \n \n This app was built by Michael Carneal and Robert Han."
+      return_menu = gets.chomp
+      system"clear"
+      puts static_logo
+      login_screen
+    elsif answer == "3"
+      exit_app
+    else
+      puts "Invalid response"
+      sleep 1
+      system"clear"
+      puts static_logo
+      login_screen
+    end
+
 
 end
 
 def get_user
-  static_logo
+  puts static_logo
   puts"\n Please enter your username"
   @user_name = gets.chomp.strip
   if User.find_by(name: @user_name)
@@ -84,7 +119,6 @@ def get_user
 @user_name
 system "clear"
 end
-
 
 
 def zip_search
@@ -376,11 +410,12 @@ end
 
 def start
   welcome
-  user = get_user
-  coffee_search = zip_search
-  coffee_array = coffee_list(coffee_search)
-  clean_list(coffee_array)
-  favorite_coffee(coffee_array)
+  login_screen
+  # user = get_user
+  # coffee_search = zip_search
+  # coffee_array = coffee_list(coffee_search)
+  # clean_list(coffee_array)
+  # favorite_coffee(coffee_array)
 end
 
 def logout
