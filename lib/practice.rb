@@ -1,3 +1,31 @@
+# Whirly.start spinner: "pong"
+# Whirly.status = "LOADING"
+# sleep 4
+# Whirly.stop
+#
+#
+# Whirly.start spinner: "pong"
+# Whirly.status = "GATHERING COFFEE SHOPS"
+# sleep 4
+# Whirly.stop
+#
+#
+
+# Whirly.start spinner: "dots"
+# Whirly.status = "I am now DEACTIVATED"
+# sleep 1
+# Whirly.stop
+
+
+
+
+
+
+
+
+
+
+
 # #
 # # shops = CoffeeShop.all.each do |shop|
 # #   puts "name: #{coffeeshop.name}, location: #{coffeeshop.location} "

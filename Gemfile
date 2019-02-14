@@ -8,3 +8,5 @@ gem "require_all"
 gem "dotenv"
 gem "http"
 gem "rake"
+gem 'whirly'
+gem 'paint'

@@ -1,14 +1,49 @@
 require "json"
 require "http"
 require "pry"
+require "paint"
+
+
 
 
 
 def welcome
   system "clear"
-  puts "*" *30
-  puts "  Welcome to Coffee Search     "
-  puts "*" *30
+
+
+  puts "*" * 30
+  puts "  Welcome to JAVA BOT     "
+  puts "*" * 30
+
+#   print "\033c"
+# puts Paint["Earth Spinner", :underline]
+
+Whirly.start spinner: "earth"
+Whirly.status = "INITIALIZING COFFEE DATABASE"
+sleep 1.5
+Whirly.stop
+
+puts
+
+# Whirly.start spinner: "pong"
+# Whirly.status = "GATHERING COFFEE SHOPS"
+# sleep 4
+# Whirly.stop
+
+puts "3"
+puts
+sleep 1
+puts "2"
+puts
+sleep 1
+puts "1"
+puts
+sleep 1
+puts "FINISHED"
+puts
+sleep 1
+
+
 end
 
 def get_user
@@ -16,6 +51,10 @@ def get_user
   @user_name = gets.chomp.strip
   if User.find_by(name: @user_name)
     puts "Welcome back #{@user_name}"
+    Whirly.start spinner: "pong"
+    Whirly.status = "LOADING"
+    sleep 2
+    Whirly.stop
     sleep 1
   else
     puts "welcome new user, please enter your home location"
@@ -45,6 +84,11 @@ def zip_search
     system "clear"
     zip_search
   end
+
+  Whirly.start spinner: "pong"
+  Whirly.status = "GATHERING COFFEE SHOPS"
+  sleep 2
+  Whirly.stop
   coffee_search
 end
 
@@ -249,10 +293,56 @@ def typo_checker(input)
 end
 
 def exit_app
-  puts "Thank you for using Java Beans: Where a fresh brew is just around the corner!"
-
+  puts "Thank you for using JAVA BOT: Where a fresh brew is just around the corner!"
+  Whirly.start spinner: "dots"
+  Whirly.status = "JAVA BOT is"
   sleep 2
-  system "clear"
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "now"
+  sleep 1
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "shutting"
+  sleep 1
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "down"
+  sleep 1
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "down"
+  sleep 1
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "down"
+  sleep 1
+  Whirly.stop
+
+  puts
+
+  Whirly.start spinner: "dots"
+  Whirly.status = "I am now DEACTIVATED"
+  sleep 1
+  Whirly.stop
+
+  puts
+
   exit!
 end
 
