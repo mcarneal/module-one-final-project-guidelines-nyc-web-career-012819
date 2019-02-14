@@ -8,3 +8,4 @@ gem "require_all"
 gem "dotenv"
 gem "http"
 gem "rake"
+gem 'rspotify'
