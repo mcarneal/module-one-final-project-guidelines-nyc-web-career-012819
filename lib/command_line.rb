@@ -19,7 +19,7 @@ def static_logo
 ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-"
+".green
 
 end
 
@@ -35,7 +35,7 @@ def logo
 ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-")
+".green)
 
 end
 
@@ -320,61 +320,23 @@ def typo_checker(input)
 end
 
 def exit_app
-  puts "Thank you for using JAVA BOT: Where a fresh brew is just around the corner!"
+  puts "Thank you for using JAVA SEARCH: Where a fresh brew is just around the corner!"
   Whirly.start spinner: "dots"
-  Whirly.status = "JAVA BOT is"
+  Whirly.status = "JAVA SEARCH"
   sleep 2
   Whirly.stop
 
   puts
 
   Whirly.start spinner: "dots"
-  Whirly.status = "now"
-  sleep 1
+  Whirly.status = "Shutting Down"
+  sleep 2
   Whirly.stop
-
-  puts
-
-  Whirly.start spinner: "dots"
-  Whirly.status = "shutting"
-  sleep 1
-  Whirly.stop
-
-  puts
-
-  Whirly.start spinner: "dots"
-  Whirly.status = "down"
-  sleep 1
-  Whirly.stop
-
-  puts
-
-  Whirly.start spinner: "dots"
-  Whirly.status = "down"
-  sleep 1
-  Whirly.stop
-
-  puts
-
-  Whirly.start spinner: "dots"
-  Whirly.status = "down"
-  sleep 1
-  Whirly.stop
-
-  puts
-
-  Whirly.start spinner: "dots"
-  Whirly.status = "I am now DEACTIVATED"
-  sleep 1
-  Whirly.stop
-
-  puts
-
 
   system"killall afplay"
   system "clear"
 
-  exit!
+  # exit!
 end
 
 def get_me_more_java(user)

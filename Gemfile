@@ -10,3 +10,4 @@ gem "http"
 gem "rake"
 gem "whirly"
 gem "paint"
+gem 'colorize', '~> 0.8.1'
