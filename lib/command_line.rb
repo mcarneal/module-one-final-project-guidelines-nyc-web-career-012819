@@ -34,7 +34,6 @@ def zip_search
   if location.length == 5
 
   coffee_search = YelpApiAdapter.search("coffee", location)
-  coffee_search
     if coffee_search == nil
       error_message
       zip_search
@@ -46,6 +45,7 @@ def zip_search
     system "clear"
     zip_search
   end
+  coffee_search
 end
 
 
@@ -194,6 +194,7 @@ def delete_favorites
     "
     input = gets.chomp
     if input == "1"
+      system "clear"
       delete_favorites_list
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
       delete_shop = gets.chomp
