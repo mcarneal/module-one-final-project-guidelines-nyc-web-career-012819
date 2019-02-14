@@ -3,9 +3,15 @@ require "http"
 require "pry"
 require "paint"
 
-def logo
-  system"clear"
-  puts"
+def scroll_text(text)
+  text.each_char do |c|
+    print c
+    sleep (0.003)
+  end
+end
+
+def static_logo
+  "
      ██╗ █████╗ ██╗   ██╗ █████╗     ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗
      ██║██╔══██╗██║   ██║██╔══██╗    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║
      ██║███████║██║   ██║███████║    ███████╗█████╗  ███████║██████╔╝██║     ███████║
@@ -14,6 +20,22 @@ def logo
  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
 "
+
+end
+
+
+
+def logo
+  system"clear"
+  scroll_text("
+     ██╗ █████╗ ██╗   ██╗ █████╗     ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗
+     ██║██╔══██╗██║   ██║██╔══██╗    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║
+     ██║███████║██║   ██║███████║    ███████╗█████╗  ███████║██████╔╝██║     ███████║
+██   ██║██╔══██║╚██╗ ██╔╝██╔══██║    ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║
+╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
+ ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+
+")
 
 end
 
@@ -44,7 +66,7 @@ Whirly.stop
 end
 
 def get_user
-  logo
+  static_logo
   puts"\n Please enter your username"
   @user_name = gets.chomp.strip
   if User.find_by(name: @user_name)
@@ -66,7 +88,7 @@ end
 
 
 def zip_search
-  welcome
+  puts static_logo
   puts "Where would you like to search for coffee? Please enter zip code"
   location = gets.chomp
   if location.length == 5
@@ -172,7 +194,7 @@ def my_favorite_shops
 end
 
 def list_of_favorites
-  logo
+  static_logo
   counter = 1
   my_favorite_shops.each do |shop|
     puts "\n#{counter}   #{shop.name} \n Location: #{shop.location}"
@@ -203,7 +225,7 @@ end
 
 def menu
   system "clear"
-  logo
+  static_logo
   puts "
   Main MENU
     --1--  Get me more JAVA!
@@ -231,7 +253,7 @@ def menu
   end
 
 def delete_favorites
-  logo
+  static_logo
   puts "
     DELETE MENU
     --1--  Delete a specific favorite
@@ -241,7 +263,7 @@ def delete_favorites
     input = gets.chomp
     if input == "1"
       system "clear"
-      logo
+      static_logo
       delete_favorites_list
       puts "Please type in the **EXACT** name of the coffeeshop you would like to delete"
       delete_shop = gets.chomp
@@ -260,13 +282,13 @@ def delete_favorites
 
       else
         system "clear"
-        logo
+        static_logo
         puts  "Incorrect entry"
         delete_favorites
       end
 
     elsif input == "2"
-      logo
+      static_logo
       user_id = User.find_by(name: @user_name).id
       delete_list = Favorite.all
       delete_list.map do |favorite|

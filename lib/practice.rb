@@ -16,6 +16,13 @@
 # sleep 1
 # Whirly.stop
 
+# def scroll_text(text)
+#   text.each_char do |c|
+#     print c
+#     sleep (0.002)
+#   end
+# end
+
 
 
 
