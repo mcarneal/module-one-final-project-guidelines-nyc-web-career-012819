@@ -218,7 +218,13 @@ def delete_favorites
       end
 
     elsif input == "2"
-      # view_favorites.destroy
+      user_id = User.find_by(name: @user_name).id
+      delete_list = Favorite.all
+      delete_list.map do |favorite|
+        if favorite.user_id == user_id
+          favorite.destroy
+        end
+      end
       puts "Your favorites list is empty"
       delete_favorites
     elsif input == "3"
