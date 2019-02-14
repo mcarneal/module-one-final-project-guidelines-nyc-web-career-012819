@@ -3,8 +3,7 @@ require_relative '../config/environment'
 pid = fork{ exec 'afplay', "lib/audio/jazz.mp3" }
 
 
-
-
+welcome
 user = get_user
 coffee_search = zip_search
 coffee_array = coffee_list(coffee_search)

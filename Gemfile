@@ -8,9 +8,5 @@ gem "require_all"
 gem "dotenv"
 gem "http"
 gem "rake"
-<<<<<<< HEAD
-gem 'whirly'
-gem 'paint'
-=======
-gem 'rspotify'
->>>>>>> add_music
+gem "whirly"
+gem "paint"
