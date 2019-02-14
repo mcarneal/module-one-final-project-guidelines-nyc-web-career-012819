@@ -1,6 +1,7 @@
 require "json"
 require "http"
 require "pry"
+
 API_KEY = ENV["API_KEY"]
 
 API_HOST = "https://api.yelp.com"
