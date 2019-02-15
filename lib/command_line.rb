@@ -82,8 +82,9 @@ def login_screen
     elsif answer == "2"
       system"clear"
       puts static_logo
-      puts "This is a command line app that uses a yelp api to search for coffee shops. Each user can save a coffee shop to their favorites or delete them at a later time. \n \n This app was built by Michael Carneal and Robert Han."
-      return_menu = gets.chomp
+      puts "This is a command line app that uses a yelp api to search for coffee shops. Each user can save a coffee shop  to their favorites or delete them at a later time. \n \nThis app was built by Michael Carneal and Robert Han."
+      puts "\n\nPress any key and Enter to return to login screen."
+      gets.chomp
       system"clear"
       puts static_logo
       login_screen
@@ -110,9 +111,9 @@ def get_user
     Whirly.status = "LOADING"
     sleep 2
     Whirly.stop
-    
+    sleep 1
   else
-    puts "welcome new user, please enter your home location"
+    puts "welcome #{@user_name}, please enter your home location"
     location = gets.chomp
     User.create(name: @user_name, location: location)
   end
@@ -300,7 +301,7 @@ def menu
       puts "Please select from the following:"
       menu
     end
-  end
+end
 
 def delete_favorites
   system"clear"
@@ -349,13 +350,8 @@ def delete_favorites
         delete_list = Favorite.all
         delete_list.map do |favorite|
            if favorite.user_id == user_id
-             Whirly.start spinner: "pong"
-             Whirly.status = puts "Removing #{favorite.name} from your favorites"
-             sleep 1
-             Whirly.stop
-
-            # puts "Removing #{favorite.name} from your favorites"
-            # sleep 0.5
+            puts "Removing #{favorite.name} from your favorites"
+            sleep 0.5
             favorite.destroy
           end
         end
@@ -372,7 +368,7 @@ def delete_favorites
       puts "Please select from the following:"
       delete_favorites
     end
-  end
+end
 
 def typo_checker(input)
   if input != CoffeeShop.find_by(name: input)
@@ -387,14 +383,7 @@ def typo_checker(input)
 end
 
 def exit_app
-  puts
-  Whirly.start spinner: "dots"
-  Whirly.status = "Thank you for using JAVA SEARCH: Where a fresh brew is just around the corner!"
-  sleep 2
-  Whirly.stop
-
-  puts
-
+  puts "Thank you for using JAVA SEARCH: Where a fresh brew is just around the corner!"
   Whirly.start spinner: "dots"
   Whirly.status = "JAVA SEARCH"
   sleep 2
@@ -406,7 +395,6 @@ def exit_app
   Whirly.status = "Shutting Down"
   sleep 2
   Whirly.stop
-  sleep 1
 
   system"killall afplay"
   system "clear"
