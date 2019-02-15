@@ -110,7 +110,7 @@ def get_user
     Whirly.status = "LOADING"
     sleep 2
     Whirly.stop
-    sleep 1
+    
   else
     puts "welcome new user, please enter your home location"
     location = gets.chomp
@@ -349,8 +349,13 @@ def delete_favorites
         delete_list = Favorite.all
         delete_list.map do |favorite|
            if favorite.user_id == user_id
-            puts "Removing #{favorite.name} from your favorites"
-            sleep 0.5
+             Whirly.start spinner: "pong"
+             Whirly.status = puts "Removing #{favorite.name} from your favorites"
+             sleep 1
+             Whirly.stop
+
+            # puts "Removing #{favorite.name} from your favorites"
+            # sleep 0.5
             favorite.destroy
           end
         end
@@ -382,7 +387,14 @@ def typo_checker(input)
 end
 
 def exit_app
-  puts "Thank you for using JAVA SEARCH: Where a fresh brew is just around the corner!"
+  puts
+  Whirly.start spinner: "dots"
+  Whirly.status = "Thank you for using JAVA SEARCH: Where a fresh brew is just around the corner!"
+  sleep 2
+  Whirly.stop
+
+  puts
+
   Whirly.start spinner: "dots"
   Whirly.status = "JAVA SEARCH"
   sleep 2
@@ -394,6 +406,7 @@ def exit_app
   Whirly.status = "Shutting Down"
   sleep 2
   Whirly.stop
+  sleep 1
 
   system"killall afplay"
   system "clear"
